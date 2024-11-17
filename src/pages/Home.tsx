@@ -1,7 +1,23 @@
-import blogs from "../../blogs.json";
+import { useTranslation } from "react-i18next";
+
+interface Blog {
+  id: number;
+  title: string;
+  author: string;
+  date: string;
+  description: string;
+  tags: string[];
+  image: string;
+}
 
 function Home() {
-  const tags = Array.from(new Set(blogs.flatMap((blog) => blog.tags)));
+  const { t } = useTranslation();
+  const blogs: Blog[] = t("blogs", { returnObjects: true }) as Blog[];
+  const tags = Array.from(
+    new Set(
+      blogs.reduce((acc: string[], blog: Blog) => acc.concat(blog.tags), []),
+    ),
+  );
   const authors = Array.from(new Set(blogs.map((blog) => blog.author)));
 
   return (
@@ -36,7 +52,7 @@ function Home() {
       </div>
       <div className="mt-4 w-full lg:mt-0 lg:w-1/3 lg:pl-4">
         <div className="mb-4 rounded-3xl border p-4">
-          <h2 className="mb-2 text-xl font-bold">Popular Tags</h2>
+          <h2 className="mb-2 text-xl font-bold">{t("popularTags")}</h2>
           <div className="flex flex-wrap">
             {tags.map((tag) => (
               <span
@@ -49,7 +65,7 @@ function Home() {
           </div>
         </div>
         <div className="rounded-3xl border p-4">
-          <h2 className="mb-2 text-xl font-bold">Featured Authors</h2>
+          <h2 className="mb-2 text-xl font-bold">{t("featuredAuthors")}</h2>
           <ul>
             {authors.map((author) => (
               <li key={author} className="mb-2">

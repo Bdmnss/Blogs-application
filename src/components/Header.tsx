@@ -1,45 +1,63 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+} from "@/components/ui/select";
 
 function Header() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
   };
 
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
+  const toggleTheme = (newTheme: string) => {
     setTheme(newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
   };
 
   return (
     <header className="flex items-center justify-between border-b p-4">
-      <div className="logo">Logo</div>
+      <div className="logo">{t("logo")}</div>
       <nav>
         <Link to="/" className="mx-2">
-          Home
+          {t("home")}
         </Link>
       </nav>
       <div className="flex items-center">
-        <button onClick={() => changeLanguage("en")} className="mx-2">
-          EN
-        </button>
-        <button onClick={() => changeLanguage("ka")} className="mx-2">
-          KA
-        </button>
+        <Select onValueChange={changeLanguage}>
+          <SelectTrigger className="mx-2">
+            <SelectValue placeholder={t("language")} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="en">{t("english")}</SelectItem>
+            <SelectItem value="ka">{t("georgian")}</SelectItem>
+          </SelectContent>
+        </Select>
+        <Select onValueChange={toggleTheme}>
+          <SelectTrigger className="mx-2">
+            <SelectValue placeholder={t("theme")} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="light">{t("lightMode")}</SelectItem>
+            <SelectItem value="dark">{t("darkMode")}</SelectItem>
+          </SelectContent>
+        </Select>
         <Link className="mx-2" to="/login">
-          Login
+          {t("login")}
         </Link>
         <Link className="mx-2" to="/register">
-          Register
+          {t("register")}
         </Link>
-        <button onClick={toggleTheme} className="mx-2">
-          {theme === "light" ? "Dark Mode" : "Light Mode"}
-        </button>
       </div>
     </header>
   );

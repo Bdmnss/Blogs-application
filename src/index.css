@@ -3,19 +3,19 @@
 @tailwind utilities;
 
 html.dark {
-  --bg-color: theme("colors.darkBg");
-  --border-color: theme("colors.darkBorder");
-  --text-color: theme("colors.darkText");
-  --tag-bg-color: theme("colors.darkTagBg");
-  --tag-text-color: theme("colors.darkTagText");
+  --bg-color: #06080e;
+  --border-color: #1f2937;
+  --text-color: #ffffff;
+  --tag-bg-color: #121317;
+  --tag-text-color: #a2a6b9;
 }
 
 html {
-  --bg-color: theme("colors.lightBg");
-  --border-color: theme("colors.lightBorder");
-  --text-color: theme("colors.lightText");
-  --tag-bg-color: theme("colors.lightTagBg");
-  --tag-text-color: theme("colors.lightTagText");
+  --bg-color: #ffffff;
+  --border-color: #1f2937;
+  --text-color: #03050c;
+  --tag-bg-color: #e0e2eb;
+  --tag-text-color: #3d435c;
 }
 
 body {
