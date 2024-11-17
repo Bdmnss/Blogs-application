@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Introduction to Blockchain",
+    "author": "John Doe",
+    "date": "2023-10-01",
+    "description": "A beginner's guide to blockchain technology.",
+    "tags": ["blockchain", "technology"],
+    "image": "/placeholder.png"
+  },
+  {
+    "id": 2,
+    "title": "Programming in JavaScript",
+    "author": "Jane Smith",
+    "date": "2023-09-15",
+    "description": "Learn the basics of programming in JavaScript.",
+    "tags": ["programming", "javascript"],
+    "image": "/placeholder.png"
+  }
+]
