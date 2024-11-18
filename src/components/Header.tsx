@@ -8,6 +8,13 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+} from "@/components/ui/dropdown-menu";
 
 function Header() {
   const { t, i18n } = useTranslation();
@@ -26,7 +33,7 @@ function Header() {
   };
 
   return (
-    <header className="flex items-center justify-between border-b p-4">
+    <header className="flex items-center justify-between border-b bg-[var(--bg-color)] p-4 text-[var(--text-color)]">
       <div className="logo">{t("logo")}</div>
       <nav>
         <Link to="/" className="mx-2">
@@ -43,15 +50,23 @@ function Header() {
             <SelectItem value="ka">{t("georgian")}</SelectItem>
           </SelectContent>
         </Select>
-        <Select onValueChange={toggleTheme}>
-          <SelectTrigger className="mx-2">
-            <SelectValue placeholder={t("theme")} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="light">{t("lightMode")}</SelectItem>
-            <SelectItem value="dark">{t("darkMode")}</SelectItem>
-          </SelectContent>
-        </Select>
+        <DropdownMenu>
+          <DropdownMenuTrigger className="mx-2">
+            <button className="rounded bg-[var(--tag-bg-color)] px-4 py-2 text-[var(--tag-text-color)]">
+              {t("theme")}
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuRadioGroup value={theme} onValueChange={toggleTheme}>
+              <DropdownMenuRadioItem value="light">
+                {t("lightMode")}
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="dark">
+                {t("darkMode")}
+              </DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <Link className="mx-2" to="/login">
           {t("login")}
         </Link>
