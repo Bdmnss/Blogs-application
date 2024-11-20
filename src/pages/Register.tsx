@@ -1,4 +1,6 @@
 import { useTranslation } from "react-i18next";
+import { register } from "@/supabase/auth";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import {
   Card,
@@ -13,10 +15,14 @@ import { Button } from "@/components/ui/button";
 
 function Register() {
   const { t } = useTranslation();
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const { mutate: handleRegister } = useMutation({
+    mutationKey: ["register"],
+    mutationFn: register,
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,9 +30,7 @@ function Register() {
       alert(t("passwordsDoNotMatch"));
       return;
     }
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
+    handleRegister({ email, password });
   };
 
   return (
@@ -39,22 +43,6 @@ function Register() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <Label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-              >
-                {t("name")}
-              </Label>
-              <Input
-                type="text"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-              />
-            </div>
             <div>
               <Label
                 htmlFor="email"

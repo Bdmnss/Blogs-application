@@ -1,5 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "@/supabase/auth";
 import {
   Card,
   CardHeader,
@@ -16,10 +18,14 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { mutate: handleLogin } = useMutation({
+    mutationKey: ["login"],
+    mutationFn: login,
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+    handleLogin({ email, password });
   };
 
   return (
