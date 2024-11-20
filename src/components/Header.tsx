@@ -39,6 +39,9 @@ function Header() {
         <Link to="/" className="mx-2">
           {t("home")}
         </Link>
+        <Link to="/about" className="mx-2">
+          {t("about")}
+        </Link>
       </nav>
       <div className="flex items-center">
         <Select onValueChange={changeLanguage}>
