@@ -1,30 +1,17 @@
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardHeader,
   CardTitle,
-  CardDescription,
   CardContent,
+  CardDescription,
 } from "@/components/ui/card";
-
-interface Blog {
-  id: number;
-  title: string;
-  author: string;
-  date: string;
-  description: string;
-  tags: string[];
-  image: string;
-}
+import blogs from "../../blogs.json";
 
 function Home() {
   const { t } = useTranslation();
-  const blogs: Blog[] = t("blogs", { returnObjects: true }) as Blog[];
-  const tags = Array.from(
-    new Set(
-      blogs.reduce((acc: string[], blog: Blog) => acc.concat(blog.tags), []),
-    ),
-  );
+  const tags = Array.from(new Set(blogs.flatMap((blog) => blog.tags)));
   const authors = Array.from(new Set(blogs.map((blog) => blog.author)));
 
   return (
@@ -93,7 +80,12 @@ function Home() {
             <ul>
               {authors.map((author) => (
                 <li key={author} className="mb-2">
-                  {author}
+                  <Link
+                    to={`/author/${author}`}
+                    className="text-blue-500 hover:underline"
+                  >
+                    {author}
+                  </Link>
                 </li>
               ))}
             </ul>

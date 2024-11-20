@@ -35,6 +35,15 @@ const resources = {
       "passwordsDoNotMatch": "Passwords do not match",
       "popularTags": "Popular Tags",
       "featuredAuthors": "Featured Authors",
+      "authorAbout": "This is a brief description about the author.",
+      "authorAboutContent": "This is a detailed description about the author, including their background, experience, and achievements.",
+      "followers": "Followers",
+      "following": "Following",
+      "articles": "Articles",
+      "skills": "Skills",
+      "skill1": "Skill 1",
+      "skill2": "Skill 2",
+      "skill3": "Skill 3",
       "blogs": [
         {
           "id": 1,
@@ -90,6 +99,15 @@ const resources = {
       "passwordsDoNotMatch": "პაროლები არ ემთხვევა",
       "popularTags": "პოპულარული ტეგები",
       "featuredAuthors": "გამორჩეული ავტორები",
+      "authorAbout": "ეს არის მოკლე აღწერა ავტორის შესახებ.",
+      "authorAboutContent": "ეს არის დეტალური აღწერა ავტორის შესახებ, მათ შორის მათი გამოცდილება და მიღწევები.",
+      "followers": "გამომწერები",
+      "following": "მიმდევრები",
+      "articles": "სტატიები",
+      "skills": "უნარები",
+      "skill1": "უნარი 1",
+      "skill2": "უნარი 2",
+      "skill3": "უნარი 3",
       "blogs": [
         {
           "id": 1,
