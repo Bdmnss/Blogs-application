@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/atoms";
 import {
   Select,
   SelectTrigger,
@@ -19,6 +21,7 @@ import {
 function Header() {
   const { t, i18n } = useTranslation();
   const [theme, setTheme] = useState("light");
+  const [user] = useAtom(userAtom);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -31,6 +34,10 @@ function Header() {
   const toggleTheme = (newTheme: string) => {
     setTheme(newTheme);
   };
+
+  const avatarUrl = user
+    ? `https://avatars.dicebear.com/api/avataaars/${user.id}.svg`
+    : "";
 
   return (
     <header className="flex items-center justify-between border-b bg-[var(--bg-color)] p-4 text-[var(--text-color)]">
@@ -70,12 +77,24 @@ function Header() {
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Link className="mx-2" to="/login">
-          {t("login")}
-        </Link>
-        <Link className="mx-2" to="/register">
-          {t("register")}
-        </Link>
+        {user ? (
+          <button className="rounded-full bg-[var(--tag-bg-color)] px-3">
+            <img
+              src={avatarUrl}
+              alt="avatar"
+              className="size-10 rounded-full"
+            />
+          </button>
+        ) : (
+          <>
+            <Link className="mx-2" to="/login">
+              {t("login")}
+            </Link>
+            <Link className="mx-2" to="/register">
+              {t("register")}
+            </Link>
+          </>
+        )}
       </div>
     </header>
   );

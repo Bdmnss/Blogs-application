@@ -2,6 +2,9 @@ import { useTranslation } from "react-i18next";
 import { register } from "@/supabase/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSetAtom } from "jotai";
+import { userAtom } from "@/store/atoms";
 import {
   Card,
   CardHeader,
@@ -18,10 +21,18 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const setUser = useSetAtom(userAtom);
+  const navigate = useNavigate();
 
   const { mutate: handleRegister } = useMutation({
     mutationKey: ["register"],
     mutationFn: register,
+    onSuccess: (data) => {
+      const user = data.data.user;
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
+      navigate("/");
+    },
   });
 
   const handleSubmit = (e: React.FormEvent) => {

@@ -2,6 +2,9 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/supabase/auth";
+import { useNavigate } from "react-router-dom";
+import { useSetAtom } from "jotai";
+import { userAtom } from "@/store/atoms";
 import {
   Card,
   CardHeader,
@@ -17,10 +20,18 @@ function Login() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const setUser = useSetAtom(userAtom);
+  const navigate = useNavigate();
 
   const { mutate: handleLogin } = useMutation({
     mutationKey: ["login"],
     mutationFn: login,
+    onSuccess: (data) => {
+      const user = data.data.user;
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
+      navigate("/");
+    },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
