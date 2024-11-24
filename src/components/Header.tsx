@@ -14,14 +14,19 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
+import { createAvatar } from "@dicebear/core";
+import { lorelei } from "@dicebear/collection";
+import { supabase } from "@/supabase";
 
 function Header() {
   const { t, i18n } = useTranslation();
   const [theme, setTheme] = useState("light");
-  const [user] = useAtom(userAtom);
+  const [user, setUser] = useAtom(userAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,18 +41,27 @@ function Header() {
     setTheme(newTheme);
   };
 
-  const avatarUrl = user
-    ? `https://avatars.dicebear.com/api/avataaars/${user.id}.svg`
-    : "";
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
+  const avatarSvg = user?.avatar_url
+    ? user.avatar_url
+    : `data:image/svg+xml;utf8,${encodeURIComponent(createAvatar(lorelei, { seed: "felix" }).toString())}`;
 
   return (
     <header className="flex items-center justify-between border-b bg-[var(--bg-color)] p-4 text-[var(--text-color)]">
-      <div className="logo">{t("logo")}</div>
+      <Link to="/" className="cursor-pointer">
+        {t("logo")}
+      </Link>
       <nav>
-        <Link to="/" className="mx-2">
+        <Link to="/" className="mx-2 cursor-pointer">
           {t("home")}
         </Link>
-        <Link to="/about" className="mx-2">
+        <Link to="/about" className="mx-2 cursor-pointer">
           {t("about")}
         </Link>
       </nav>
@@ -57,8 +71,12 @@ function Header() {
             <SelectValue placeholder={t("language")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="en">{t("english")}</SelectItem>
-            <SelectItem value="ka">{t("georgian")}</SelectItem>
+            <SelectItem className="cursor-pointer" value="en">
+              {t("english")}
+            </SelectItem>
+            <SelectItem className="cursor-pointer" value="ka">
+              {t("georgian")}
+            </SelectItem>
           </SelectContent>
         </Select>
         <DropdownMenu>
@@ -69,26 +87,42 @@ function Header() {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuRadioGroup value={theme} onValueChange={toggleTheme}>
-              <DropdownMenuRadioItem value="light">
+              <DropdownMenuRadioItem className="cursor-pointer" value="light">
                 {t("lightMode")}
               </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="dark">
+              <DropdownMenuRadioItem className="cursor-pointer" value="dark">
                 {t("darkMode")}
               </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
         {user ? (
-          <button
-            className="rounded-full bg-[var(--tag-bg-color)] px-3"
-            onClick={() => navigate("/profile")}
-          >
-            <img
-              src={user.avatarUrl || avatarUrl}
-              alt="avatar"
-              className="size-10 rounded-full"
-            />
-          </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="mx-2">
+              <button className="overflow-hidden rounded-full bg-[var(--tag-bg-color)] p-1">
+                <img
+                  src={avatarSvg}
+                  alt="avatar"
+                  className="h-8 w-20 rounded-full"
+                />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onSelect={() => navigate("/profile")}
+              >
+                {t("profile")}
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onSelect={handleLogout}
+              >
+                {t("logout")}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         ) : (
           <>
             <Link className="mx-2" to="/login">

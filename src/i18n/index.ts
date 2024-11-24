@@ -53,6 +53,7 @@ const resources = {
       "phoneNumber": "Phone Number",
       "updateProfile": "Update Profile",
       "profileUpdated": "Profile updated successfully",
+      "logout": "Logout",
       "blogs": [
         {
           "id": 1,
@@ -126,6 +127,7 @@ const resources = {
       "phoneNumber": "ტელეფონის ნომერი",
       "updateProfile": "პროფილის განახლება",
       "profileUpdated": "პროფილი წარმატებით განახლდა",
+      "logout": "გამოსვლა",
       "blogs": [
         {
           "id": 1,
