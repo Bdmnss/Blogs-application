@@ -44,6 +44,15 @@ const resources = {
       "skill1": "Skill 1",
       "skill2": "Skill 2",
       "skill3": "Skill 3",
+      "profile": "Profile",
+      "firstNameKa": "First Name (Georgian)",
+      "lastNameKa": "Last Name (Georgian)",
+      "firstNameEn": "First Name (English)",
+      "lastNameEn": "Last Name (English)",
+      "avatarUrl": "Avatar URL",
+      "phoneNumber": "Phone Number",
+      "updateProfile": "Update Profile",
+      "profileUpdated": "Profile updated successfully",
       "blogs": [
         {
           "id": 1,
@@ -108,6 +117,15 @@ const resources = {
       "skill1": "უნარი 1",
       "skill2": "უნარი 2",
       "skill3": "უნარი 3",
+      "profile": "პროფილი",
+      "firstNameKa": "სახელი (ქართული)",
+      "lastNameKa": "გვარი (ქართული)",
+      "firstNameEn": "სახელი (ინგლისური)",
+      "lastNameEn": "გვარი (ინგლისური)",
+      "avatarUrl": "ავატარის URL",
+      "phoneNumber": "ტელეფონის ნომერი",
+      "updateProfile": "პროფილის განახლება",
+      "profileUpdated": "პროფილი წარმატებით განახლდა",
       "blogs": [
         {
           "id": 1,

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/atoms";
@@ -22,6 +22,7 @@ function Header() {
   const { t, i18n } = useTranslation();
   const [theme, setTheme] = useState("light");
   const [user] = useAtom(userAtom);
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -78,9 +79,12 @@ function Header() {
           </DropdownMenuContent>
         </DropdownMenu>
         {user ? (
-          <button className="rounded-full bg-[var(--tag-bg-color)] px-3">
+          <button
+            className="rounded-full bg-[var(--tag-bg-color)] px-3"
+            onClick={() => navigate("/profile")}
+          >
             <img
-              src={avatarUrl}
+              src={user.avatarUrl || avatarUrl}
               alt="avatar"
               className="size-10 rounded-full"
             />

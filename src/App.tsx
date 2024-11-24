@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import About from "./pages/About";
 import Author from "./pages/Author";
+import Profile from "./pages/Profile";
 import ProtectedRoute from "./guards/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ function App() {
         />
         <Route path="/about" element={<About />} />
         <Route path="/author/:authorName" element={<Author />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </QueryClientProvider>
   );
