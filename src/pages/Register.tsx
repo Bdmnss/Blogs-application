@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { register } from "@/supabase/auth";
-import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
 import { useSetAtom } from "jotai";
 import { userAtom } from "@/store/atoms";
+import { useMutation } from "@tanstack/react-query";
+import { register } from "@/supabase/auth";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -16,13 +16,42 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+const validationRules = {
+  email: {
+    required: "emailRequired",
+    pattern: {
+      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+      message: "invalidEmail",
+    },
+  },
+  password: {
+    required: "passwordRequired",
+    minLength: {
+      value: 8,
+      message: "passwordMinLength",
+    },
+    maxLength: {
+      value: 20,
+      message: "passwordMaxLength",
+    },
+  },
+  confirmPassword: {
+    required: "confirmPasswordRequired",
+    validate: (value: string, getValues: () => { password: string }) =>
+      value === getValues().password || "passwordsDoNotMatch",
+  },
+};
+
 function Register() {
   const { t } = useTranslation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const setUser = useSetAtom(userAtom);
   const navigate = useNavigate();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm<{ email: string; password: string; confirmPassword: string }>();
 
   const { mutate: handleRegister } = useMutation({
     mutationKey: ["register"],
@@ -35,13 +64,12 @@ function Register() {
     },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      alert(t("passwordsDoNotMatch"));
-      return;
-    }
-    handleRegister({ email, password });
+  const onSubmit = (data: {
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }) => {
+    handleRegister({ email: data.email, password: data.password });
   };
 
   return (
@@ -53,7 +81,7 @@ function Register() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div>
               <Label
                 htmlFor="email"
@@ -61,14 +89,23 @@ function Register() {
               >
                 {t("email")}
               </Label>
-              <Input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+              <Controller
+                name="email"
+                control={control}
+                rules={validationRules.email}
+                render={({ field }) => (
+                  <Input
+                    id="email"
+                    {...field}
+                    className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+                  />
+                )}
               />
+              {errors.email && (
+                <p className="mt-2 text-sm text-red-600">
+                  {t(errors.email?.message || "")}
+                </p>
+              )}
             </div>
             <div>
               <Label
@@ -77,14 +114,24 @@ function Register() {
               >
                 {t("password")}
               </Label>
-              <Input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+              <Controller
+                name="password"
+                control={control}
+                rules={validationRules.password}
+                render={({ field }) => (
+                  <Input
+                    type="password"
+                    id="password"
+                    {...field}
+                    className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+                  />
+                )}
               />
+              {errors.password && (
+                <p className="mt-2 text-sm text-red-600">
+                  {t(errors.password?.message || "")}
+                </p>
+              )}
             </div>
             <div>
               <Label
@@ -93,14 +140,28 @@ function Register() {
               >
                 {t("confirmPassword")}
               </Label>
-              <Input
-                type="password"
-                id="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+              <Controller
+                name="confirmPassword"
+                control={control}
+                rules={{
+                  ...validationRules.confirmPassword,
+                  validate: (value) =>
+                    value === getValues().password || t("passwordsDoNotMatch"),
+                }}
+                render={({ field }) => (
+                  <Input
+                    type="password"
+                    id="confirmPassword"
+                    {...field}
+                    className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+                  />
+                )}
               />
+              {errors.confirmPassword && (
+                <p className="mt-2 text-sm text-red-600">
+                  {t(errors.confirmPassword?.message || "")}
+                </p>
+              )}
             </div>
             <CardFooter>
               <Button

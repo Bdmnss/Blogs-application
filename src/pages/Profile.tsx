@@ -13,10 +13,72 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+interface ProfileFormData {
+  firstNameKa: string;
+  lastNameKa: string;
+  firstNameEn: string;
+  lastNameEn: string;
+  avatarUrl: string;
+  phoneNumber: string;
+}
+
+const validationRules = {
+  firstNameKa: {
+    minLength: {
+      value: 2,
+      message: "firstNameKaMinLength",
+    },
+    maxLength: {
+      value: 30,
+      message: "firstNameKaMaxLength",
+    },
+  },
+  lastNameKa: {
+    minLength: {
+      value: 2,
+      message: "lastNameKaMinLength",
+    },
+    maxLength: {
+      value: 30,
+      message: "lastNameKaMaxLength",
+    },
+  },
+  firstNameEn: {
+    minLength: {
+      value: 2,
+      message: "firstNameEnMinLength",
+    },
+    maxLength: {
+      value: 30,
+      message: "firstNameEnMaxLength",
+    },
+  },
+  lastNameEn: {
+    minLength: {
+      value: 2,
+      message: "lastNameEnMinLength",
+    },
+    maxLength: {
+      value: 30,
+      message: "lastNameEnMaxLength",
+    },
+  },
+  avatarUrl: {},
+  phoneNumber: {
+    minLength: {
+      value: 9,
+      message: "phoneNumberLength",
+    },
+    maxLength: {
+      value: 9,
+      message: "phoneNumberLength",
+    },
+  },
+};
+
 function Profile() {
   const { t } = useTranslation();
   const [user, setUser] = useAtom(userAtom);
-  console.log(user);
   const {
     control,
     handleSubmit,
@@ -32,14 +94,9 @@ function Profile() {
     },
   });
 
-  const onSubmit = async (data: {
-    firstNameKa: string;
-    lastNameKa: string;
-    firstNameEn: string;
-    lastNameEn: string;
-    avatarUrl: string;
-    phoneNumber: string;
-  }) => {
+  console.log(user);
+
+  const onSubmit = async (data: ProfileFormData) => {
     const { error } = await supabase
       .from("profiles")
       .update({
@@ -61,7 +118,6 @@ function Profile() {
         phone_number: data.phoneNumber,
       };
       setUser(updatedUser);
-      console.log(updatedUser);
       localStorage.setItem("user", JSON.stringify(updatedUser));
       alert(t("profileUpdated"));
     }
@@ -76,16 +132,22 @@ function Profile() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <div>
+              <label
+                htmlFor="firstNameKa"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
                 {t("firstNameKa")}
               </label>
               <Controller
                 name="firstNameKa"
                 control={control}
+                rules={validationRules.firstNameKa}
                 render={({ field }) => (
                   <Input
+                    type="text"
+                    id="firstNameKa"
                     {...field}
                     className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
                   />
@@ -93,20 +155,25 @@ function Profile() {
               />
               {errors.firstNameKa && (
                 <p className="mt-2 text-sm text-red-600">
-                  {typeof errors.firstNameKa?.message === "string" &&
-                    errors.firstNameKa.message}
+                  {t((errors.firstNameKa?.message as string) || "")}
                 </p>
               )}
             </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <div>
+              <label
+                htmlFor="lastNameKa"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
                 {t("lastNameKa")}
               </label>
               <Controller
                 name="lastNameKa"
                 control={control}
+                rules={validationRules.lastNameKa}
                 render={({ field }) => (
                   <Input
+                    type="text"
+                    id="lastNameKa"
                     {...field}
                     className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
                   />
@@ -114,20 +181,25 @@ function Profile() {
               />
               {errors.lastNameKa && (
                 <p className="mt-2 text-sm text-red-600">
-                  {typeof errors.lastNameKa?.message === "string" &&
-                    errors.lastNameKa.message}
+                  {t((errors.lastNameKa?.message as string) || "")}
                 </p>
               )}
             </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <div>
+              <label
+                htmlFor="firstNameEn"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
                 {t("firstNameEn")}
               </label>
               <Controller
                 name="firstNameEn"
                 control={control}
+                rules={validationRules.firstNameEn}
                 render={({ field }) => (
                   <Input
+                    type="text"
+                    id="firstNameEn"
                     {...field}
                     className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
                   />
@@ -135,20 +207,25 @@ function Profile() {
               />
               {errors.firstNameEn && (
                 <p className="mt-2 text-sm text-red-600">
-                  {typeof errors.firstNameEn?.message === "string" &&
-                    errors.firstNameEn.message}
+                  {t((errors.firstNameEn?.message as string) || "")}
                 </p>
               )}
             </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <div>
+              <label
+                htmlFor="lastNameEn"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
                 {t("lastNameEn")}
               </label>
               <Controller
                 name="lastNameEn"
                 control={control}
+                rules={validationRules.lastNameEn}
                 render={({ field }) => (
                   <Input
+                    type="text"
+                    id="lastNameEn"
                     {...field}
                     className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
                   />
@@ -156,20 +233,25 @@ function Profile() {
               />
               {errors.lastNameEn && (
                 <p className="mt-2 text-sm text-red-600">
-                  {typeof errors.lastNameEn?.message === "string" &&
-                    errors.lastNameEn.message}
+                  {t((errors.lastNameEn?.message as string) || "")}
                 </p>
               )}
             </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <div>
+              <label
+                htmlFor="avatarUrl"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
                 {t("avatarUrl")}
               </label>
               <Controller
                 name="avatarUrl"
                 control={control}
+                rules={validationRules.avatarUrl}
                 render={({ field }) => (
                   <Input
+                    type="text"
+                    id="avatarUrl"
                     {...field}
                     className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
                   />
@@ -177,29 +259,33 @@ function Profile() {
               />
               {errors.avatarUrl && (
                 <p className="mt-2 text-sm text-red-600">
-                  {typeof errors.avatarUrl?.message === "string" &&
-                    errors.avatarUrl.message}
+                  {t((errors.avatarUrl?.message as string) || "")}
                 </p>
               )}
             </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <div>
+              <label
+                htmlFor="phoneNumber"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
                 {t("phoneNumber")}
               </label>
               <Controller
                 name="phoneNumber"
                 control={control}
+                rules={validationRules.phoneNumber}
                 render={({ field }) => (
                   <Input
+                    type="number"
+                    id="phoneNumber"
                     {...field}
-                    className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+                    className="numberInput no-spinner mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
                   />
                 )}
               />
               {errors.phoneNumber && (
                 <p className="mt-2 text-sm text-red-600">
-                  {typeof errors.phoneNumber?.message === "string" &&
-                    errors.phoneNumber.message}
+                  {t((errors.phoneNumber?.message as string) || "")}
                 </p>
               )}
             </div>
