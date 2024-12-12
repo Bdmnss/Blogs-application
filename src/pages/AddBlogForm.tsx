@@ -43,7 +43,7 @@ const AddBlogForm = () => {
       }
 
       img_url = uploadData?.path
-        ? supabase.storage.from("blog-images").getPublicUrl(uploadData.path)
+        ? supabase.storage.from("blog_images").getPublicUrl(uploadData.path)
             .data.publicUrl
         : "";
     }
