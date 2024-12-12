@@ -70,6 +70,15 @@ const resources = {
       "lastNameEnMaxLength": "Last name (English) must be at most 30 characters",
       "avatarUrlRequired": "Avatar URL is required",
       "phoneNumberLength": "Phone number must be exactly 9 characters",
+      "addBlog": "Add Blog",
+      "titleEn": "Title (English)",
+      "titleKa": "Title (Georgian)",
+      "descriptionEn": "Description (English)",
+      "descriptionKa": "Description (Georgian)",
+      "imgUrl": "Image URL",
+      "blogCreated": "Blog created successfully",
+      "loading": "Loading...",
+      "errorLoadingBlogs": "Error loading blogs",
       "blogs": [
         {
           "id": 1,
@@ -160,6 +169,15 @@ const resources = {
       "lastNameEnMaxLength": "გვარი (ინგლისური) უნდა იყოს მაქსიმუმ 30 სიმბოლო",
       "avatarUrlRequired": "ავატარის URL აუცილებელია",
       "phoneNumberLength": "ტელეფონის ნომერი უნდა იყოს ზუსტად 9 სიმბოლო",
+      "addBlog": "ბლოგის დამატება",
+      "titleEn": "სათაური (ინგლისური)",
+      "titleKa": "სათაური (ქართული)",
+      "descriptionEn": "აღწერა (ინგლისური)",
+      "descriptionKa": "აღწერა (ქართული)",
+      "imgUrl": "სურათის URL",
+      "blogCreated": "ბლოგი წარმატებით შეიქმნა",
+      "loading": "იტვირთება...",
+      "errorLoadingBlogs": "შეცდომა ბლოგების ჩატვირთვისას",
       "blogs": [
         {
           "id": 1,
