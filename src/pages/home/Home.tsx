@@ -1,12 +1,11 @@
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/supabase";
 import {
   Card,
   CardHeader,
   CardTitle,
-  CardContent,
   CardDescription,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,7 +17,9 @@ import { useAtom } from "jotai";
 import { filterAtom, languageAtom } from "@/store/atoms";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import data from "../../data.json";
+import data from "../../../data.json";
+import PopularTags from "./components/PopularTags";
+import FeaturedAuthors from "./components/FeaturedAuthors";
 
 dayjs.extend(relativeTime);
 
@@ -135,46 +136,8 @@ function Home() {
         </div>
       </div>
       <div className="mt-4 w-full lg:mt-0 lg:w-1/3 lg:pl-4">
-        <Card className="mb-4 rounded-3xl border p-4">
-          <CardHeader>
-            <CardTitle className="mb-2 text-xl font-bold">
-              {t("popularTags")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap">
-              {data.map((data) => (
-                <span
-                  key={data.id}
-                  className="tag mb-2 mr-2 rounded-full px-2 py-1 text-sm"
-                >
-                  {data.tags}
-                </span>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="rounded-3xl border p-4">
-          <CardHeader>
-            <CardTitle className="mb-2 text-xl font-bold">
-              {t("featuredAuthors")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul>
-              {data.map((data) => (
-                <li key={data.id} className="mb-2">
-                  <Link
-                    to={`/author/${data.author}`}
-                    className="text-blue-500 hover:underline"
-                  >
-                    {data.author}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <PopularTags data={data} />
+        <FeaturedAuthors data={data} />
       </div>
     </div>
   );
