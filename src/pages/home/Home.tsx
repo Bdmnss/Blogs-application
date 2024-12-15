@@ -20,6 +20,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import data from "../../../data.json";
 import PopularTags from "./components/PopularTags";
 import FeaturedAuthors from "./components/FeaturedAuthors";
+import { formatDate } from "@/utils/dateUtils";
 
 dayjs.extend(relativeTime);
 
@@ -79,18 +80,6 @@ function Home() {
   if (error) {
     return <div>{t("errorLoadingBlogs")}</div>;
   }
-
-  const formatDate = (date: string) => {
-    const now = dayjs();
-    const blogDate = dayjs(date);
-    const diffInHours = now.diff(blogDate, "hour");
-
-    if (diffInHours < 24) {
-      return blogDate.fromNow();
-    } else {
-      return blogDate.format("HH:mm - DD/MM/YYYY");
-    }
-  };
 
   return (
     <div className="flex flex-col p-10 lg:flex-row">
