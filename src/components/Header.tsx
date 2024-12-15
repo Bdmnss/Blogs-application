@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAtom } from "jotai";
-import { userAtom } from "@/store/atoms";
+import { userAtom, filterAtom, languageAtom } from "@/store/atoms";
 import {
   Select,
   SelectTrigger,
@@ -27,6 +27,8 @@ function Header() {
   const { t, i18n } = useTranslation();
   const [theme, setTheme] = useState("light");
   const [user, setUser] = useAtom(userAtom);
+  const [, setFilter] = useAtom(filterAtom);
+  const [, setLanguage] = useAtom(languageAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,6 +37,7 @@ function Header() {
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
+    setLanguage(lng);
   };
 
   const toggleTheme = (newTheme: string) => {
@@ -52,13 +55,22 @@ function Header() {
     ? user.avatar_url
     : `data:image/svg+xml;utf8,${encodeURIComponent(createAvatar(lorelei, { seed: "felix" }).toString())}`;
 
+  const handleNavigateHome = () => {
+    setFilter("");
+    navigate("/");
+  };
+
   return (
     <header className="flex items-center justify-between border-b bg-[var(--bg-color)] p-4 text-[var(--text-color)]">
-      <Link to="/" className="cursor-pointer">
+      <Link to="/" className="cursor-pointer" onClick={handleNavigateHome}>
         {t("logo")}
       </Link>
       <nav>
-        <Link to="/" className="mx-2 cursor-pointer">
+        <Link
+          to="/"
+          className="mx-2 cursor-pointer"
+          onClick={handleNavigateHome}
+        >
           {t("home")}
         </Link>
         <Link to="/about" className="mx-2 cursor-pointer">

@@ -60,7 +60,7 @@ function Author() {
       </Card>
 
       <Tabs defaultValue="articles" className="w-full max-w-5xl">
-        <TabsList className="mb-6 flex justify-center rounded-lg bg-gray-200 dark:bg-gray-700">
+        <TabsList className="mb-6 flex justify-center rounded-lg bg-gray-200 py-8 dark:bg-gray-700">
           <TabsTrigger value="articles" className="px-8 py-3 text-xl">
             {t("articles")}
           </TabsTrigger>

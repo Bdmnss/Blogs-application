@@ -79,6 +79,7 @@ const resources = {
       "blogCreated": "Blog created successfully",
       "loading": "Loading...",
       "errorLoadingBlogs": "Error loading blogs",
+      "noResults": "No results found",
       "blogs": [
         {
           "id": 1,
@@ -178,6 +179,7 @@ const resources = {
       "blogCreated": "ბლოგი წარმატებით შეიქმნა",
       "loading": "იტვირთება...",
       "errorLoadingBlogs": "შეცდომა ბლოგების ჩატვირთვისას",
+      "noResults": "შედეგები არ მოიძებნა",
       "blogs": [
         {
           "id": 1,

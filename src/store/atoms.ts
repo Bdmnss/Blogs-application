@@ -13,3 +13,6 @@ userAtom.onMount = (setUser) => {
     setUser(user);
   }
 };
+
+export const filterAtom = atom("");
+export const languageAtom = atom("en");

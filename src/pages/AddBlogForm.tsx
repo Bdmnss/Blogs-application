@@ -76,118 +76,122 @@ const AddBlogForm = () => {
   };
 
   return (
-    <Card className="mb-4 rounded-3xl border p-4">
-      <CardHeader>
-        <CardTitle className="mb-2 text-xl font-bold">{t("addBlog")}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
-            <label
-              htmlFor="title_en"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              {t("titleEn")}
-            </label>
-            <Controller
-              name="title_en"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  type="text"
-                  id="title_en"
-                  {...field}
-                  className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-                />
-              )}
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="title_ka"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              {t("titleKa")}
-            </label>
-            <Controller
-              name="title_ka"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  type="text"
-                  id="title_ka"
-                  {...field}
-                  className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-                />
-              )}
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="description_en"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              {t("descriptionEn")}
-            </label>
-            <Controller
-              name="description_en"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  type="text"
-                  id="description_en"
-                  {...field}
-                  className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-                />
-              )}
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="description_ka"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              {t("descriptionKa")}
-            </label>
-            <Controller
-              name="description_ka"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  type="text"
-                  id="description_ka"
-                  {...field}
-                  className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-                />
-              )}
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="img_url"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              {t("imgUrl")}
-            </label>
-            <input
-              type="file"
-              id="img_url"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
-            />
-          </div>
-          <CardFooter>
-            <Button
-              type="submit"
-              className="w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:border-blue-300 focus:outline-none focus:ring dark:bg-blue-600 dark:hover:bg-blue-700"
-            >
-              {t("addBlog")}
-            </Button>
-          </CardFooter>
-        </form>
-      </CardContent>
-    </Card>
+    <div className="mt-8 flex items-center justify-center">
+      <Card className="w-full max-w-lg rounded-3xl border p-4">
+        <CardHeader>
+          <CardTitle className="mb-2 text-xl font-bold">
+            {t("addBlog")}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <div>
+              <label
+                htmlFor="title_en"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                {t("titleEn")}
+              </label>
+              <Controller
+                name="title_en"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    type="text"
+                    id="title_en"
+                    {...field}
+                    className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+                  />
+                )}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="title_ka"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                {t("titleKa")}
+              </label>
+              <Controller
+                name="title_ka"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    type="text"
+                    id="title_ka"
+                    {...field}
+                    className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+                  />
+                )}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="description_en"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                {t("descriptionEn")}
+              </label>
+              <Controller
+                name="description_en"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    type="text"
+                    id="description_en"
+                    {...field}
+                    className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+                  />
+                )}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="description_ka"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                {t("descriptionKa")}
+              </label>
+              <Controller
+                name="description_ka"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    type="text"
+                    id="description_ka"
+                    {...field}
+                    className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+                  />
+                )}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="img_url"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
+                {t("imgUrl")}
+              </label>
+              <input
+                type="file"
+                id="img_url"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="mt-1 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+              />
+            </div>
+            <CardFooter>
+              <Button
+                type="submit"
+                className="w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:border-blue-300 focus:outline-none focus:ring dark:bg-blue-600 dark:hover:bg-blue-700"
+              >
+                {t("addBlog")}
+              </Button>
+            </CardFooter>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
