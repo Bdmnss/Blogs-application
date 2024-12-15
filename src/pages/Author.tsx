@@ -8,12 +8,12 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import blogs from "../../blogs.json";
+import data from "../../data.json";
 
 function Author() {
   const { t } = useTranslation();
   const { authorName } = useParams<{ authorName: string }>();
-  const authorBlogs = blogs.filter((blog) => blog.author === authorName);
+  const authorBlogs = data.filter((data) => data.author === authorName);
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-gray-100 p-12 dark:bg-gray-900">

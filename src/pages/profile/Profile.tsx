@@ -12,69 +12,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-interface ProfileFormData {
-  firstNameKa: string;
-  lastNameKa: string;
-  firstNameEn: string;
-  lastNameEn: string;
-  avatarUrl: string;
-  phoneNumber: string;
-}
-
-const validationRules = {
-  firstNameKa: {
-    minLength: {
-      value: 2,
-      message: "firstNameKaMinLength",
-    },
-    maxLength: {
-      value: 30,
-      message: "firstNameKaMaxLength",
-    },
-  },
-  lastNameKa: {
-    minLength: {
-      value: 2,
-      message: "lastNameKaMinLength",
-    },
-    maxLength: {
-      value: 30,
-      message: "lastNameKaMaxLength",
-    },
-  },
-  firstNameEn: {
-    minLength: {
-      value: 2,
-      message: "firstNameEnMinLength",
-    },
-    maxLength: {
-      value: 30,
-      message: "firstNameEnMaxLength",
-    },
-  },
-  lastNameEn: {
-    minLength: {
-      value: 2,
-      message: "lastNameEnMinLength",
-    },
-    maxLength: {
-      value: 30,
-      message: "lastNameEnMaxLength",
-    },
-  },
-  avatarUrl: {},
-  phoneNumber: {
-    minLength: {
-      value: 9,
-      message: "phoneNumberLength",
-    },
-    maxLength: {
-      value: 9,
-      message: "phoneNumberLength",
-    },
-  },
-};
+import { validationRules } from "./validations";
+import { ProfileFormData } from "./types";
 
 function Profile() {
   const { t } = useTranslation();
@@ -93,8 +32,6 @@ function Profile() {
       phoneNumber: user?.phone_number || "",
     },
   });
-
-  console.log(user);
 
   const onSubmit = async (data: ProfileFormData) => {
     const { error } = await supabase

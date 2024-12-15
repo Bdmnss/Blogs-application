@@ -10,6 +10,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import data from "../../data.json";
 
 const fetchBlogs = async () => {
   const { data, error } = await supabase
@@ -41,8 +42,6 @@ function Home() {
     return <div>{t("errorLoadingBlogs")}</div>;
   }
 
-  const authors = Array.from(new Set(blogs?.map((blog) => blog.user_id) || []));
-
   return (
     <div className="flex flex-col p-10 lg:flex-row">
       <div className="flex-1">
@@ -67,17 +66,33 @@ function Home() {
                 <CardDescription>
                   {blog.description_en || blog.description_ka}
                 </CardDescription>
-                <p>
-                  {blog.user_id} -{" "}
-                  {new Date(blog.created_at).toLocaleDateString()}
-                </p>
+                <p>{new Date(blog.created_at).toLocaleDateString()}</p>
               </CardHeader>
             </Card>
           ))}
         </div>
       </div>
-      <div className="mt-4 w-full lg:mt-0 lg:w-1/3 lg:pl-4">
+      <div className="mt-12 w-full lg:mt-12 lg:w-1/3 lg:pl-4">
         <Card className="mb-4 rounded-3xl border p-4">
+          <CardHeader>
+            <CardTitle className="mb-2 text-xl font-bold">
+              {t("popularTags")}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap">
+              {data.map((data) => (
+                <span
+                  key={data.id}
+                  className="tag mb-2 mr-2 rounded-full px-2 py-1 text-sm"
+                >
+                  {data.tags}
+                </span>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="rounded-3xl border p-4">
           <CardHeader>
             <CardTitle className="mb-2 text-xl font-bold">
               {t("featuredAuthors")}
@@ -85,13 +100,13 @@ function Home() {
           </CardHeader>
           <CardContent>
             <ul>
-              {authors.map((author) => (
-                <li key={author} className="mb-2">
+              {data.map((data) => (
+                <li key={data.id} className="mb-2">
                   <Link
-                    to={`/author/${author}`}
+                    to={`/author/${data.author}`}
                     className="text-blue-500 hover:underline"
                   >
-                    {author}
+                    {data.author}
                   </Link>
                 </li>
               ))}

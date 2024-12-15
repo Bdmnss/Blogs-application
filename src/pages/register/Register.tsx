@@ -15,32 +15,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-const validationRules = {
-  email: {
-    required: "emailRequired",
-    pattern: {
-      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-      message: "invalidEmail",
-    },
-  },
-  password: {
-    required: "passwordRequired",
-    minLength: {
-      value: 8,
-      message: "passwordMinLength",
-    },
-    maxLength: {
-      value: 20,
-      message: "passwordMaxLength",
-    },
-  },
-  confirmPassword: {
-    required: "confirmPasswordRequired",
-    validate: (value: string, getValues: () => { password: string }) =>
-      value === getValues().password || "passwordsDoNotMatch",
-  },
-};
+import { validationRules } from "./validations";
 
 function Register() {
   const { t } = useTranslation();
