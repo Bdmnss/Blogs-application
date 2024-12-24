@@ -1,7 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/supabase";
 import {
   Card,
   CardHeader,
@@ -15,29 +13,12 @@ import qs from "qs";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useAtom } from "jotai";
 import { filterAtom, languageAtom } from "@/store/atoms";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import data from "../../../data.json";
 import PopularTags from "./components/PopularTags";
 import FeaturedAuthors from "./components/FeaturedAuthors";
 import { formatDate } from "@/utils/dateUtils";
 import { AppRouteEnums } from "@/routes/AppRouteEnums";
-
-dayjs.extend(relativeTime);
-
-const fetchBlogs = async (filter: string) => {
-  const { data, error } = await supabase
-    .from("blogs")
-    .select("*")
-    .ilike("title_en", `%${filter}%`)
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data;
-};
+import { useFetchBlogs } from "@/hooks/useFetchBlogs";
 
 function Home() {
   const { t } = useTranslation();
@@ -62,17 +43,7 @@ function Home() {
     navigate(queryString, { replace: true });
   }, [debouncedFilter, navigate]);
 
-  const {
-    data: blogs,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["blogs", debouncedFilter],
-    queryFn: () => fetchBlogs(debouncedFilter),
-    refetchOnWindowFocus: false,
-    refetchOnMount: true,
-    refetchOnReconnect: true,
-  });
+  const { data: blogs, isLoading, error } = useFetchBlogs(debouncedFilter);
 
   if (isLoading) {
     return <div>{t("loading")}</div>;

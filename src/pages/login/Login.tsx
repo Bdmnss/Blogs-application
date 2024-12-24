@@ -2,8 +2,6 @@ import { useTranslation } from "react-i18next";
 import { useForm, Controller } from "react-hook-form";
 import { useSetAtom } from "jotai";
 import { userAtom } from "@/store/atoms";
-import { useMutation } from "@tanstack/react-query";
-import { login } from "@/supabase/auth";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
@@ -17,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { validationRules } from "./validations";
 import { AppRouteEnums } from "@/routes/AppRouteEnums";
+import { useLogin } from "@/hooks/useLogin";
 
 function Login() {
   const { t } = useTranslation();
@@ -28,15 +27,11 @@ function Login() {
     formState: { errors },
   } = useForm<{ email: string; password: string }>();
 
-  const { mutate: handleLogin } = useMutation({
-    mutationKey: ["login"],
-    mutationFn: login,
-    onSuccess: (data) => {
-      const user = data.data.user;
-      setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
-      navigate(AppRouteEnums.HOME);
-    },
+  const { mutate: handleLogin } = useLogin((data) => {
+    const user = data.data.user;
+    setUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
+    navigate(AppRouteEnums.HOME);
   });
 
   const onSubmit = (data: { email: string; password: string }) => {

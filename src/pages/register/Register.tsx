@@ -2,8 +2,6 @@ import { useTranslation } from "react-i18next";
 import { useForm, Controller } from "react-hook-form";
 import { useSetAtom } from "jotai";
 import { userAtom } from "@/store/atoms";
-import { useMutation } from "@tanstack/react-query";
-import { register } from "@/supabase/auth";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
@@ -17,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { validationRules } from "./validations";
 import { AppRouteEnums } from "@/routes/AppRouteEnums";
+import { useRegister } from "@/hooks/useRegister";
 
 function Register() {
   const { t } = useTranslation();
@@ -29,15 +28,11 @@ function Register() {
     getValues,
   } = useForm<{ email: string; password: string; confirmPassword: string }>();
 
-  const { mutate: handleRegister } = useMutation({
-    mutationKey: ["register"],
-    mutationFn: register,
-    onSuccess: (data) => {
-      const user = data.data.user;
-      setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
-      navigate(AppRouteEnums.HOME);
-    },
+  const { mutate: handleRegister } = useRegister((data) => {
+    const user = data.data.user;
+    setUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
+    navigate(AppRouteEnums.HOME);
   });
 
   const onSubmit = (data: {
