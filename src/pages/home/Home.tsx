@@ -21,6 +21,7 @@ import data from "../../../data.json";
 import PopularTags from "./components/PopularTags";
 import FeaturedAuthors from "./components/FeaturedAuthors";
 import { formatDate } from "@/utils/dateUtils";
+import { AppRouteEnums } from "@/routes/AppRouteEnums";
 
 dayjs.extend(relativeTime);
 
@@ -92,7 +93,7 @@ function Home() {
           className="mb-4 w-full rounded border px-3 py-2 shadow-sm focus:border-blue-300 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
         />
         <Button
-          onClick={() => navigate("/add-blog")}
+          onClick={() => navigate(AppRouteEnums.ADD_BLOG)}
           className="mb-4 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:border-blue-300 focus:outline-none focus:ring dark:bg-blue-600 dark:hover:bg-blue-700"
         >
           {t("addBlog")}

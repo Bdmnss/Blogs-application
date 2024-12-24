@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { validationRules } from "./validations";
+import { AppRouteEnums } from "@/routes/AppRouteEnums";
 
 function Register() {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ function Register() {
       const user = data.data.user;
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
-      navigate("/");
+      navigate(AppRouteEnums.HOME);
     },
   });
 

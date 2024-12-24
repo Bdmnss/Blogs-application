@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { AppRouteEnums } from "@/routes/AppRouteEnums";
 
 interface FeaturedAuthorsProps {
   data: { id: number; author: string }[];
@@ -21,7 +22,7 @@ const FeaturedAuthors: React.FC<FeaturedAuthorsProps> = ({ data }) => {
           {data.map((author) => (
             <li key={author.id} className="mb-2">
               <Link
-                to={`/author/${author.author}`}
+                to={AppRouteEnums.AUTHOR.replace(":author", author.author)}
                 className="text-blue-500 hover:underline"
               >
                 {author.author}

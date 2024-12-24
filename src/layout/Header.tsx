@@ -22,6 +22,7 @@ import {
 import { createAvatar } from "@dicebear/core";
 import { lorelei } from "@dicebear/collection";
 import { supabase } from "@/supabase";
+import { AppRouteEnums } from "@/routes/AppRouteEnums";
 
 function Header() {
   const { t, i18n } = useTranslation();
@@ -48,7 +49,7 @@ function Header() {
     await supabase.auth.signOut();
     setUser(null);
     localStorage.removeItem("user");
-    navigate("/login");
+    navigate(AppRouteEnums.LOGIN);
   };
 
   const avatarSvg = user?.avatar_url
@@ -57,23 +58,27 @@ function Header() {
 
   const handleNavigateHome = () => {
     setFilter("");
-    navigate("/");
+    navigate(AppRouteEnums.HOME);
   };
 
   return (
     <header className="flex items-center justify-between border-b bg-[var(--bg-color)] p-4 text-[var(--text-color)]">
-      <Link to="/" className="cursor-pointer" onClick={handleNavigateHome}>
+      <Link
+        to={AppRouteEnums.HOME}
+        className="cursor-pointer"
+        onClick={handleNavigateHome}
+      >
         {t("logo")}
       </Link>
       <nav>
         <Link
-          to="/"
+          to={AppRouteEnums.HOME}
           className="mx-2 cursor-pointer"
           onClick={handleNavigateHome}
         >
           {t("home")}
         </Link>
-        <Link to="/about" className="mx-2 cursor-pointer">
+        <Link to={AppRouteEnums.ABOUT} className="mx-2 cursor-pointer">
           {t("about")}
         </Link>
       </nav>
@@ -122,7 +127,7 @@ function Header() {
             <DropdownMenuContent>
               <DropdownMenuItem
                 className="cursor-pointer"
-                onSelect={() => navigate("/profile")}
+                onSelect={() => navigate(AppRouteEnums.PROFILE)}
               >
                 {t("profile")}
               </DropdownMenuItem>
@@ -137,10 +142,10 @@ function Header() {
           </DropdownMenu>
         ) : (
           <>
-            <Link className="mx-2" to="/login">
+            <Link className="mx-2" to={AppRouteEnums.LOGIN}>
               {t("login")}
             </Link>
-            <Link className="mx-2" to="/register">
+            <Link className="mx-2" to={AppRouteEnums.REGISTER}>
               {t("register")}
             </Link>
           </>
