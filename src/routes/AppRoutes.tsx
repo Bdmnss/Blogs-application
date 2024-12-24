@@ -7,7 +7,7 @@ import Author from "../pages/Author";
 import Profile from "../pages/profile/Profile";
 import AddBlogForm from "../pages/AddBlogForm";
 import ProtectedRoute from "../guards/ProtectedRoute";
-import { AppRouteEnums } from "./AppRouteEnums";
+import { AppRouteEnums } from "../enums/AppRouteEnums";
 
 const AppRoutes = () => {
   return (

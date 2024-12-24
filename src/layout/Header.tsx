@@ -22,7 +22,7 @@ import {
 import { createAvatar } from "@dicebear/core";
 import { lorelei } from "@dicebear/collection";
 import { supabase } from "@/supabase";
-import { AppRouteEnums } from "@/routes/AppRouteEnums";
+import { AppRouteEnums } from "@/enums/AppRouteEnums";
 
 function Header() {
   const { t, i18n } = useTranslation();

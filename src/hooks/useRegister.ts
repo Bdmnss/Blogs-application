@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { register } from "@/supabase/auth";
 import { AuthError, Session, User } from "@supabase/supabase-js";
+import { MutationKeysEnum } from "@/enums/MutationKeysEnum";
 
 interface RegisterData {
   email: string;
@@ -17,7 +18,7 @@ interface RegisterResponse {
 
 export const useRegister = (onSuccess: (data: RegisterResponse) => void) => {
   return useMutation({
-    mutationKey: ["register"],
+    mutationKey: [MutationKeysEnum.REGISTER],
     mutationFn: (data: RegisterData) => register(data),
     onSuccess,
   });

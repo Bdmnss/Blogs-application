@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/supabase";
+import { QueryKeysEnum } from "@/enums/queryKeysEnum";
 
 const fetchBlogs = async (filter: string) => {
   const { data, error } = await supabase
@@ -17,7 +18,7 @@ const fetchBlogs = async (filter: string) => {
 
 export const useFetchBlogs = (filter: string) => {
   return useQuery({
-    queryKey: ["blogs", filter],
+    queryKey: [QueryKeysEnum.BLOGS, filter],
     queryFn: () => fetchBlogs(filter),
     refetchOnWindowFocus: false,
     refetchOnMount: true,

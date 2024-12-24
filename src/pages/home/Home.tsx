@@ -17,7 +17,7 @@ import data from "../../../data.json";
 import PopularTags from "./components/PopularTags";
 import FeaturedAuthors from "./components/FeaturedAuthors";
 import { formatDate } from "@/utils/dateUtils";
-import { AppRouteEnums } from "@/routes/AppRouteEnums";
+import { AppRouteEnums } from "@/enums/AppRouteEnums";
 import { useFetchBlogs } from "@/hooks/useFetchBlogs";
 
 function Home() {

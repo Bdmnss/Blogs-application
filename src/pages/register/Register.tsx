@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { validationRules } from "./validations";
-import { AppRouteEnums } from "@/routes/AppRouteEnums";
+import { AppRouteEnums } from "@/enums/AppRouteEnums";
 import { useRegister } from "@/hooks/useRegister";
 
 function Register() {

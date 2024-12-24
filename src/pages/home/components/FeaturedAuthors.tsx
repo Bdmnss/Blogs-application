@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { AppRouteEnums } from "@/routes/AppRouteEnums";
+import { AppRouteEnums } from "@/enums/AppRouteEnums";
 
 interface FeaturedAuthorsProps {
   data: { id: number; author: string }[];

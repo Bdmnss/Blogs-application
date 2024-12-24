@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import { userAtom } from "@/store/atoms";
 import { Navigate } from "react-router-dom";
 import { ReactNode } from "react";
-import { AppRouteEnums } from "@/routes/AppRouteEnums";
+import { AppRouteEnums } from "@/enums/AppRouteEnums";
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
   const [user] = useAtom(userAtom);

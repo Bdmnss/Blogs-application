@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/supabase/auth";
 import { User, WeakPassword } from "@supabase/supabase-js";
+import { MutationKeysEnum } from "@/enums/MutationKeysEnum";
 
 interface LoginData {
   email: string;
@@ -17,7 +18,7 @@ interface LoginResponse {
 
 export const useLogin = (onSuccess: (data: LoginResponse) => void) => {
   return useMutation({
-    mutationKey: ["login"],
+    mutationKey: [MutationKeysEnum.LOGIN],
     mutationFn: (data: LoginData) => login(data),
     onSuccess,
   });
